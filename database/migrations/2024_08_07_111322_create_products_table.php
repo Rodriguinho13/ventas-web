@@ -18,6 +18,8 @@ return new class extends Migration
             $table->integer('quantity')->default(0);//cantidad de productos existentes, por default 0
             $table->enum('status', ['Activo', 'Descontinuado'])->default('Activo'); //enum permite crear estados fijos de una tabla
 
+
+            //Relacion que tiene productos con categorias
             $table->unsignedBigInteger('category_id'); //llave foranea por la relación que tiene con categorias
 
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade'); //category_id hace referencia

@@ -23,4 +23,10 @@ class Buy extends Model
     {
         return $this->belongsTo(Provider::class);
     }
+
+    //una compra lo realiza un usuario
+    public function user() : BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
 }

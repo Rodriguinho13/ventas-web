@@ -3,18 +3,15 @@
 use App\Http\Controllers\ProfileController;
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\Sale;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\DB; //para el constructo de consultas en Laravel
 
 Route::get('/', function () {
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
+    $sale = Sale::find(1);
+    return view('test', ['sale' => $sale]);
 });
 
 Route::get('/test', function(){
@@ -85,7 +82,10 @@ Route::get('/test', function(){
 
     // $category = DB::table('categories')->insert(['name' => "Celulares"]);
     // return view('test', ['category' => $category]);
+
+
 });
+
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');

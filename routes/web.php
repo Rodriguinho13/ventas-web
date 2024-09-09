@@ -8,6 +8,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\DB; //para el constructo de consultas en Laravel
+use App\Http\Controllers\CategoryController;
 
 Route::get('/', function () {
     $sale = Sale::find(1);
@@ -85,6 +86,32 @@ Route::get('/test', function(){
 
 
 });
+
+///////////////////CREANDO RUTA PARA PODER LISTAR Y UTILIZAR LA FUNCIÓN INDEX DEL CONTROLADOR CATEGORY//////////////
+Route::get('/categories', [CategoryController::class, 'index']);
+
+///////////////////CREANDO RUTA PARA PODER CREAR LA FUNCIÓN CREATE DEL CONTROLADOR CATEGORY//////////////
+Route::get('/categories', [CategoryController::class, 'create']);
+
+///////////////////CREANDO RUTA PARA PODER MOSTRAR, LISTAR Y UTILIZAR LA FUNCIÓN STORE DEL CONTROLADOR CATEGORY//////////////
+Route::post('/categories/store', [CategoryController::class, 'store']);
+
+///////////////////CREANDO RUTA PARA PODER MOSTRAR UNA CATEGORIA DE LA FUNCIÓN SHOW DEL CONTROLADOR CATEGORY//////////////
+Route::get('/categories/show/{$id}', [CategoryController::class, 'show']);
+
+
+/////////////////////////GRUPO DE RUTAS PARA CATEGORY CONTROLLER/////////////////////////////
+Route::controller(CategoryController::class)->group( function() {
+    Route::get('/categories', 'index');
+    Route::get('/categories', 'create');
+    Route::post('/categories/store', 'store');
+    Route::get('/categories/show/{$id}', 'show');
+    Route::get('/categories/edit/{id}', 'edit');
+    Route::put('/categories/update/{id}', 'update');
+    Route::delete('/categories/delete/{id}', 'destroy');
+
+});
+
 
 
 Route::get('/dashboard', function () {

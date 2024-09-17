@@ -9,10 +9,10 @@ use Illuminate\Database\Eloquent\Relations\MorphTo;
 class Image extends Model
 {
     use HasFactory;
-    protected $table = "images"; //a que tabla hace referencia de las migraciones
+    protected $table = "images";
+    protected $fillable = ['url'];
 
-    //creando relaciones polinomicas
-    public function imageable() : MorphTo
+    public function imageable(): MorphTo
     {
         return $this->morphTo(Image::class);
     }

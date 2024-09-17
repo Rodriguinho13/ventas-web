@@ -9,6 +9,11 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\DB; //para el constructo de consultas en Laravel
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\SaleController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\BuyController;
+use App\Http\Controllers\ClientController;
+use App\Http\Controllers\ProviderController;
 
 Route::get('/', function () {
     $sale = Sale::find(1);
@@ -88,28 +93,77 @@ Route::get('/test', function(){
 });
 
 ///////////////////CREANDO RUTA PARA PODER LISTAR Y UTILIZAR LA FUNCIÓN INDEX DEL CONTROLADOR CATEGORY//////////////
-Route::get('/categories', [CategoryController::class, 'index']);
+//Route::get('/categories', [CategoryController::class, 'index']);
 
 ///////////////////CREANDO RUTA PARA PODER CREAR LA FUNCIÓN CREATE DEL CONTROLADOR CATEGORY//////////////
-Route::get('/categories', [CategoryController::class, 'create']);
+//Route::get('/categories', [CategoryController::class, 'create']);
 
 ///////////////////CREANDO RUTA PARA PODER MOSTRAR, LISTAR Y UTILIZAR LA FUNCIÓN STORE DEL CONTROLADOR CATEGORY//////////////
-Route::post('/categories/store', [CategoryController::class, 'store']);
+//Route::post('/categories/store', [CategoryController::class, 'store']);
 
 ///////////////////CREANDO RUTA PARA PODER MOSTRAR UNA CATEGORIA DE LA FUNCIÓN SHOW DEL CONTROLADOR CATEGORY//////////////
-Route::get('/categories/show/{$id}', [CategoryController::class, 'show']);
+//Route::get('/categories/show/{$id}', [CategoryController::class, 'show']);
 
 
 /////////////////////////GRUPO DE RUTAS PARA CATEGORY CONTROLLER/////////////////////////////
-Route::controller(CategoryController::class)->group( function() {
-    Route::get('/categories', 'index');
-    Route::get('/categories', 'create');
-    Route::post('/categories/store', 'store');
-    Route::get('/categories/show/{$id}', 'show');
+Route::controller(CategoryController::class)->group(function () {
+    Route::get('/categories', 'index')->name('categories.index');
+    Route::get('/categories/create', 'create');
+    Route::post('/categories/store', 'store')->name('categories.store');
+    Route::get('/categories/show/{id}', 'show');
     Route::get('/categories/edit/{id}', 'edit');
-    Route::put('/categories/update/{id}', 'update');
+    Route::put('/categories/update/{id}', 'update')->name('categories.update');
     Route::delete('/categories/delete/{id}', 'destroy');
+});
 
+Route::controller(ProductController::class)->group(function () {
+    Route::get('/products', 'index')->name('products.index');
+    Route::get('/products/create', 'create');
+    Route::post('/products/store', 'store');
+    Route::get('/products/show/{id}', 'show');
+    Route::get('/products/edit/{id}', 'edit');
+    Route::put('/products/update/{id}', 'update');
+    Route::delete('/products/delete/{id}', 'destroy');
+});
+
+Route::controller(ProviderController::class)->group(function () {
+    Route::get('/providers', 'index')->name('providers.index');
+    Route::get('/providers/create', 'create');
+    Route::post('/providers', 'store')->name('providers.store');
+    Route::get('/providers/{id}', 'show');
+    Route::get('/providers/{id}/edit', 'edit');
+    Route::put('/providers/{id}', 'update')->name('providers.update');
+    Route::delete('/providers/{id}', 'destroy');
+});
+
+Route::controller(BuyController::class)->group(function () {
+    Route::get('/buys', 'index');
+    Route::get('/buys/create', 'create');
+    Route::post('/buys', 'store');
+    Route::get('/buys/{id}', 'show');
+    Route::get('/buys/{id}/edit', 'edit');
+    Route::put('/buys/{id}', 'update');
+    Route::delete('/buys/{id}', 'destroy');
+});
+
+Route::controller(ClientController::class)->group(function () {
+    Route::get('/clients', 'index')->name('clients.index');
+    Route::get('/clients/create', 'create')->name('clients.create');
+    Route::post('/clients', 'store')->name('clients.store');
+    Route::get('/clients/{id}', 'show')->name('clients.show');
+    Route::get('/clients/{id}/edit', 'edit')->name('clients.edit');
+    Route::put('/clients/{id}', 'update')->name('clients.update');
+    Route::delete('/clients/{id}', 'destroy')->name('clients.destroy');
+});
+
+Route::controller(SaleController::class)->group(function () {
+    Route::get('/sales', 'index');
+    Route::get('/sales/create', 'create');
+    Route::post('/sales', 'store');
+    Route::get('/sales/{id}', 'show');
+    Route::get('/sales/{id}/edit', 'edit');
+    Route::put('/sales/{id}', 'update');
+    Route::delete('/sales/{id}', 'destroy');
 });
 
 

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Category;
+use Inertia\Inertia;
+use Illuminate\Support\Facades\Redirect;
 
 class CategoryController extends Controller
 {
@@ -16,6 +18,7 @@ class CategoryController extends Controller
             //return view('categories.index', ['categories'=> $categories]); //vista por si usamos vistas blade
         return Inertia::render('Categories/index', ['categories' => $categories]); //mostrando los resultados
                                         //en una vista en inertia
+        //dd(csrf_token()); para pruebas en POSTMAN y obtener el token de la aplicacion
     }
 
     /**
@@ -37,6 +40,7 @@ class CategoryController extends Controller
         $category->description = $request->description;
         $category->save();
 
+        //dd($category); para pruebas en POSTMAN
         return Redirect::route('categories.index');
     }
 
@@ -80,6 +84,7 @@ class CategoryController extends Controller
         $category = Category::find($id);
         $category->delete();
 
+        //dd($category); para pruebas en POSTMAN
         return Redirect::route('categories.index');
     }
 }

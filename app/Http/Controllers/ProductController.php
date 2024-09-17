@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Redirect;
 use App\Models\Product;
 use Inertia\Inertia;
 use App\Models\Category;
+use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
@@ -17,6 +18,7 @@ class ProductController extends Controller
     {
         $products = Product::all();
         return Inertia::render('Products/Index');
+        //dd($products->toArray()); para pruebas en POSTMAN
     }
 
     /**
@@ -33,14 +35,19 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        $product = new Product();
-        $product->name = $request->name;
-        $product->sale_price = $request->sale_price;
-        $product->quantity = $request->quantity;
-        $product->status = $request->status;
-        $product->category_id = $request->category_id;
+
+        $product = new Product($request->all());
         $product->save();
 
+        if($request->hasFile('image')){
+            $image_path = 'public/images';
+            $image = $request->file('image');
+            $name_image = time() . "-" . $image->getClientOriginalName();
+            $request->file('image')->storeAs($image_path, $name_image);
+
+            $product->image()->create(['url' => $name_image]);
+        }
+        //dd('OK'); para pruebas en POSTMAN
         return Redirect::route('products.index');
     }
 
@@ -51,6 +58,7 @@ class ProductController extends Controller
     {
         $product = Product::find($id);
         return Inertia::render('Products/Show', ['product' => $product]);
+        //dd($product->category); para pruebas en POSTMAN
     }
 
     /**
@@ -76,6 +84,15 @@ class ProductController extends Controller
         $product->category_id = $request->category_id;
         $product->save();
 
+        if($request->hasFile('image')){
+            $image_path = 'public/images';
+            $image = $request->file('image');
+            $name_image = time() . "-" . $image->getClientOriginalName();
+            $request->file('image')->storeAs($image_path, $name_image);
+
+            $product->image()->update(['url' => $name_image]);
+        }
+        //dd('OK'); para pruebas en POSTMAN
         return Redirect::route('products.index');
     }
 
@@ -86,6 +103,8 @@ class ProductController extends Controller
     {
         $product = Product::find($id);
         $product->delete();
+        //dd($product); para pruebas en POSTMAN
+
         return Redirect::route('products.index');
     }
 }

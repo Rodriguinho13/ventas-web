@@ -16,7 +16,7 @@ class CategoryController extends Controller
     {
         $categories = Category::all(); //recuperando toda la información de la categoria
             //return view('categories.index', ['categories'=> $categories]); //vista por si usamos vistas blade
-        return Inertia::render('Categories/index', ['categories' => $categories]); //mostrando los resultados
+        return Inertia::render('Categories/Index', ['categories' => $categories]); //mostrando los resultados
                                         //en una vista en inertia
         //dd(csrf_token()); para pruebas en POSTMAN y obtener el token de la aplicacion
     }
@@ -34,6 +34,10 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'name' => 'required'
+        ]);
+
         $category = new Category();
 
         $category->name = $request->name;
@@ -68,8 +72,8 @@ class CategoryController extends Controller
     public function update(Request $request, string $id)
     {
         $category = Category::find($id);
-        $category->name = $request->name();
-        $category->description = $request->description();
+        $category->name = $request->name;
+        $category->description = $request->description;
 
         $category->save();
 

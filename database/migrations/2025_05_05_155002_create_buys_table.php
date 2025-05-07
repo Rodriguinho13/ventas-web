@@ -19,6 +19,7 @@ return new class extends Migration
             $table->unsignedBigInteger('provider_id');
             $table->foreign('provider_id')->references('id')->on('providers')->onDelete('cascade');
 
+            //usuario que registra la compra
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();

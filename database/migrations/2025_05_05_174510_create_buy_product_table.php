@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('buyproduct', function (Blueprint $table) {
+        Schema::create('buy_product', function (Blueprint $table) {
             $table->id();
             $table->decimal('buy_price', 8, 2)->default(0);//precio total de compra
             $table->integer('quantity');//cuantos productos estoy comprando

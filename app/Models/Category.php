@@ -11,7 +11,7 @@ class Category extends Model
     use HasFactory;
     protected $table = "categories";//tabla a la que se hace referencia de la base de datos
 
-    public function product() : HasMany //Una categoria tiene muchos productos
+    public function products(): HasMany //Una categoria tiene muchos productos
     {
         return $this->hasMany(Product::class); //retorna todos los productos de esa categoria
     }

@@ -16,8 +16,9 @@ return new class extends Migration
             $table->string('name', 75);
             $table->decimal('sale_price', 8, 2); // 100.50, 60.00 precio de venta
             $table->integer('quantity')->default(0); //cantidad inicial 0
-            $table->enum('status', ['Activo', 'Descontinuado'])->default('Activo'); //Permite crear estados fijos de una tabla, unicamente tendra esos valores de acttivo y descontinuado, campos fijos a una determinada tabla
-            $table->unsignedBigInteger('category_id');
+            $table->enum('status', ['Activo', 'Descontinuado'])->default('Activo'); //Permite crear estados fijos de una tabla,
+            //unicamente tendra esos valores de acttivo y descontinuado, campos fijos a una determinada tabla
+            $table->unsignedBigInteger('category_id')->nullable();
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
             $table->timestamps();
         });

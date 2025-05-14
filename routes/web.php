@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\Sale;
 use Illuminate\Support\Facades\DB;
 
 //RUTA PARA PODER HACER PRUEBAS CON ELOQUENT ORM
@@ -71,9 +72,11 @@ Route::get('/test', function(){
     // return view('test', ['products' => $products]);
 
     /////INSERTANDO DATOS A LA BASE DE DATOS SIN UAR ELOQUENT ORM/////
-    $category = DB::table('categories')->insert(['name'=>"Celulares"]);
+    //$category = DB::table('categories')->insert(['name'=>"Celulares"]);
 
-    return view('test', ['category'=>$category]);
+    /////HACIENDO LA PRUEBA DE LA TERCERA TABLA DE PRODUCTOS, VENTAS Y CLIENTES
+    $sale = Sale::find(1);
+    return view('test', ['sale'=>$sale]);
 });
 
 Route::get('/', function () {

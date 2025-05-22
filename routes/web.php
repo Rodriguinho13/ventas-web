@@ -8,6 +8,8 @@ use App\Models\Category;
 use App\Models\Product;
 use App\Models\Sale;
 use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\CategoryController;//agregamos el controlador que usaremos
+use Spatie\Permission\Contracts\Role;
 
 //RUTA PARA PODER HACER PRUEBAS CON ELOQUENT ORM
 Route::get('/test', function(){
@@ -96,6 +98,50 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
+////////MOSTRAMOS LOS DATOS DE INDEX EN LA RUTA CATEGORIES//////
+//colocamos el metodo en este caso get para listar
+//colocamos la ruta respectiva /categories
+//Colocamos el controlador que usaremos y la funcion
+Route::get('/categories', [CategoryController::class, 'index']);
+
+
+
+/////CREAMOS TODAS LAS FUNCIONES CORRESPONDIENTES DEL CRUD EN BASE A LAS FUNCIONES Y METODOS DEL CONTROLADOR RESPECTIVO//////////
+
+//CREAMOS LA RUTA PARA PODER UTILIZAR LA FUNCION INDEX DEL CATEGORYCONTROLLER
+//Route::get('/categories', [CategoryController::class, 'index']); // Ruta para llamar a la funcion index el cual muestra la información, usa metodo get por que obtenemos información
+
+//CREAMOS LA RUTA PARA PODER UTILIZAR LA FUNCION CREATE DEL CATEGORYCONTROLLER
+//Route::get('/categories', [CategoryController::class, 'create']); // Ruta para llamar a la funcion create el cual va a crear datos para ser almacenados en la BD, usa metodo get por que obtenemos información
+
+//CREAMOS LA RUTA PARA PODER UTILIZAR LA FUNCION STORE DEL CATEGORYCONTROLLER
+//Route::post('/categories/store', [CategoryController::class, 'store']); // Ruta para llamar a la funcion store el cual va a almacenar los datos que seran almacenados en la BD, usa metodo post por que vamos a insertar información en la base de datos
+
+//CREAMOS LA RUTA PARA PODER UTILIZAR LA FUNCION SHOW DEL CATEGORYCONTROLLER
+//Route::get('/categories/show/[{id}]', [CategoryController::class, 'show']); // Ruta para llamar a la funcion show el cual nos va a mostrar los datos almacenados, pero utilizando el id, ya que ese parametro nos pide en el controlador
+
+//CREAMOS LA RUTA PARA PODER UTILIZAR LA FUNCION EDIT DEL CATEGORYCONTROLLER
+//Route::get('/categories/edit/[{id}]', [CategoryController::class, 'edit']); // Ruta para llamar a la funcion edit el cual nos va a permitir modificar los datos almacenados, pero utilizando el id, ya que ese parametro nos pide en el controlador
+
+//CREAMOS LA RUTA PARA PODER UTILIZAR LA FUNCION UPDATE DEL CATEGORYCONTROLLER
+//Route::put('/categories/update/[{id}]', [CategoryController::class, 'update']); // Ruta para llamar a la funcion update el cual nos va a permitir actulizar los datos almacenados, pero utilizando el id, ya que ese parametro nos pide en el controlador
+
+//CREAMOS LA RUTA PARA PODER UTILIZAR LA FUNCION DELETE DEL CATEGORYCONTROLLER
+//Route::delete('/categories/delete/[{id}]', [CategoryController::class, 'destroy']); // Ruta para llamar a la funcion delete el cual nos va a permitir borrar todos los datos almacenados, pero utilizando el id, ya que ese parametro nos pide en el controlador
+
+/////////////////////-------------//////////////---------------///////////
+////TODAS ESTAS RUTAS, SE PUEDEN SIMPLIFICAR, DEBIDO A QUE TODAS LAS FUCIONES UTILIZAN EL MISMO CONTROLADOR, PARA LO CUAL SE USA LA AGRUPACIÓN DE CATEGORIAS///////
+
+Route::controller(CategoryController::class)->group( function(){
+    Route::get('/categories', 'index');
+    Route::get('/categories', 'create');
+    Route::post('/categories/store', 'store');
+    Route::get('/categories/show/[{id}]', 'show');
+    Route::get('/categories/edit/[{id}]', 'edit');
+    Route::put('/categories/update/[{id}]', 'update');
+    Route::delete('/categories/delete/[{id}]', 'destroy');
 });
 
 require __DIR__.'/auth.php';

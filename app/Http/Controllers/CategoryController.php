@@ -16,11 +16,15 @@ class CategoryController extends Controller
     {
         $categories = Category::all();//Recuperamos toda la información haciendo uso de la funcion all y lo guardamos en la variable categories
 
+        //Para que podamos retornar la información en una vista de Blade, usamos lo siguiente:
+        //return view('categories.index',['categories' => $categories]);
+
         //Como estamos usando o usaremos inertia (REACT)
         return Inertia::render('Categories/Index', ['categories' => $categories]);
 
-        //Para que podamos retornar la información en una vista de Blade, usamos lo siguiente:
-        //return view('categories.index',['categories' => $categories]);
+        //dd($categories->toArray());//para hacer las pruebas en POSTMAN
+
+        //dd(csrf_token());//para generar la llave de acceso para formulario
     }
 
     /**
@@ -46,6 +50,8 @@ class CategoryController extends Controller
         $category->save();//almacena toda la información en la BD
 
         return Redirect::route('categories.index');//redireccionamos a la funcion index que tiene una vista de usuario
+
+        //dd($category);
     }
 
     /**
@@ -93,6 +99,7 @@ class CategoryController extends Controller
         $category = Category::find($id);
         $category->delete();
 
+        //dd($category);
         return Redirect::route('categories.index');
     }
 }

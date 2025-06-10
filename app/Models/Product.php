@@ -15,6 +15,8 @@ class Product extends Model
     //UN PRODUCTO TIENE UNA CATEGORIA
     protected $table = "products";
 
+    protected $fillable = ['name', 'sale_price', 'quantity', 'status', 'category_id'];
+
     public function category(): BelongsTo
     {
         return $this->belongsTo(Category::class);//retorna la categoria a la cual pertenece el producto
@@ -27,7 +29,7 @@ class Product extends Model
     }
 
     //RELACIÓN UNO A UNO CON EL MODELO IMAGEN
-    public function imagen() : MorphOne
+    public function image() : MorphOne
     {
         return $this->morphOne(Image::class, 'imageable');
     }

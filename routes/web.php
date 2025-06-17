@@ -13,6 +13,7 @@ use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ProviderController;
 use App\Http\Controllers\SaleController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\BuyController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
@@ -138,7 +139,9 @@ Route::get('/categories', [CategoryController::class, 'index']);
 //CREAMOS LA RUTA PARA PODER UTILIZAR LA FUNCION DELETE DEL CATEGORYCONTROLLER
 //Route::delete('/categories/delete/[{id}]', [CategoryController::class, 'destroy']); // Ruta para llamar a la funcion delete el cual nos va a permitir borrar todos los datos almacenados, pero utilizando el id, ya que ese parametro nos pide en el controlador
 
-/////////////////////-------------//////////////---------------///////////
+/////INGRESO CON AUTENTIFICACIÓN PARA QUE PUEDAN USAR LAS RUTAS////
+Route::middleware('auth')->group(function(){
+    /////////////////////-------------//////////////---------------///////////
 ////TODAS ESTAS RUTAS, SE PUEDEN SIMPLIFICAR, DEBIDO A QUE TODAS LAS FUCIONES UTILIZAN EL MISMO CONTROLADOR, PARA LO CUAL SE USA LA AGRUPACIÓN DE CATEGORIAS///////
 
 Route::controller(CategoryController::class)->group(function () {
@@ -202,4 +205,9 @@ Route::controller(CategoryController::class)->group(function () {
         // Route::put('/sales/{id}', 'update');
         // Route::delete('/sales/{id}', 'destroy');
     });
+});
+
+
+
+
 require __DIR__.'/auth.php';

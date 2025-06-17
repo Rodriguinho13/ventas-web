@@ -42,6 +42,10 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'name' => 'required'
+        ]);
+
         $category = new Category(); //Se tiene que usar el Modelo para que estoy usando, la cual tiene una relación, para que tambien pueda acceder a todos los atributos de ese nombre, descripcion
 
         $category->name = $request->name;//obtenemos el nombre desde un formulario y almacenamos la información en el $request, obteniendo toda la información que pasamos desde la vista del usuario final desde el controlador
@@ -84,7 +88,7 @@ class CategoryController extends Controller
     public function update(Request $request, string $id)
     {
         $category = Category::find($id);
-        $category->name = $request->name();
+        $category->name = $request->name;
         $category->description=$request->description;
         $category->save();
 

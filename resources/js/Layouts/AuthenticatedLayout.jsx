@@ -30,12 +30,21 @@ export default function AuthenticatedLayout({ header, children }) {
                                 >
                                     Dashboard
                                 </NavLink>
-
+                            </div>
+                            <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                                 <NavLink
                                     href={route('categories.index')}
                                     active={route().current('categories.index')}
                                 >
                                     Categorias
+                                </NavLink>
+                            </div>
+                            <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                                <NavLink
+                                    href={route('providers.index')}
+                                    active={route().current('providers.index')}
+                                >
+                                    Proveedores
                                 </NavLink>
                             </div>
                         </div>
@@ -151,6 +160,14 @@ export default function AuthenticatedLayout({ header, children }) {
                         </ResponsiveNavLink>
                     </div>
 
+                    <div className="space-y-1 pb-3 pt-2">
+                        <ResponsiveNavLink
+                            href={route('providers.index')}
+                            active={route().current('providers.index')}
+                        >
+                            Proveedores
+                        </ResponsiveNavLink>
+                    </div>
                     <div className="border-t border-gray-200 pb-1 pt-4 dark:border-gray-600">
                         <div className="px-4">
                             <div className="text-base font-medium text-gray-800 dark:text-gray-200">
